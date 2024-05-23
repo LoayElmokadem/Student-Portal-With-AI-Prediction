@@ -1,0 +1,163 @@
+v<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in Page</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .bg {
+            background-image: url("alamein.jpg");
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.3); 
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; 
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+        }
+
+        .login-container img {
+            max-width: 200px; 
+            margin-bottom: 30px; 
+        }
+
+        .login-container input[type="text"], .login-container input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-container input[type="submit"], .login-container input[type="reset"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .login-container input[type="submit"]:hover, .login-container input[type="reset"]:hover {
+            background-color: #45a049;
+        }
+
+        .login-container .signup-link {
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .show-password input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .show-password label {
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div class="login-container">
+            <img src="logo.png" alt="Logo"> 
+            <h1>Sign in</h1>
+            <form id="loginForm">
+                <input type="text" placeholder="Registration Number" name="registration" pattern="\d+" required oninvalid="this.setCustomValidity('Please enter numbers only')" oninput="setCustomValidity('')">
+                <input type="password" placeholder="Password" name="password" id="password" required>
+                <div class="show-password">
+                    <input type="checkbox" id="togglePassword">
+                    <label for="togglePassword">Show Password</label>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <input type="submit" value="Login">
+                <input type="reset" value="Reset">
+            </form>
+            <div class="signup-link">
+                Help, I can't <a href="#">sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('change', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+        });
+
+        const form = document.getElementById('loginForm');
+        const registrationInput = form.querySelector('input[name="registration"]');
+
+        form.addEventListener('submit', function (event) {
+            if (!registrationInput.checkValidity()) {
+                registrationInput.setCustomValidity('Please enter numbers only');
+                registrationInput.reportValidity();
+                event.preventDefault();
+            } else {
+                registrationInput.setCustomValidity('');
+            }
+        });
+
+        registrationInput.addEventListener('input', function () {
+            if (registrationInput.validity.patternMismatch) {
+                registrationInput.setCustomValidity('Please enter numbers only');
+            } else {
+                registrationInput.setCustomValidity('');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
