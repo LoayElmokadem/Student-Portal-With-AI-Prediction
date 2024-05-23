@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Page</title>
+  <link href="bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f9fa;
+    }
+    .table-container {
+      width: 80%;
+      max-height: 70vh;
+      overflow-y: auto;
+      background-color: whitesmoke;
+    }
+    body {
+      background-color: rgb(216, 225, 225);
+    }
+  </style>
+</head>
+<body>
+  <div class="table-container">
+    <div style="text-align: center; margin: 10px;">
+      AAST Admin logs
+      <button id="clearButton" class="btn btn-info btn-sm" style="float: right;">Clear</button>
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Date</th>
+          <th>Admin</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody id="logTableBody">
+        <!-- Dynamic Content will be injected here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function getLogs() {
+        logs  =[
+        { date: '1/1/2024 12:00:00', admin: 'agamy', operation: 'Added a grade' },
+        { date: '2/1/2024 14:30:15', admin: 'loay', operation: 'Deleted User' },
+        { date: '3/1/2024 16:45:20', admin: 'omar', operation: 'Updated Settings' },
+        { date: '4/1/2024 10:10:10', admin: 'Mamdouh', operation: 'Logged In' },
+        { date: '5/1/2024 08:00:00', admin: 'Ahmed', operation: 'Logged Out' },
+        { date: '6/1/2024 09:30:00', admin: 'agamy', operation: 'Updated Settings' },
+        { date: '7/1/2024 12:45:30', admin: 'loay', operation: 'Logged In' },
+        { date: '8/1/2024 11:20:10', admin: 'omar', operation: 'Logged Out' },
+        { date: '9/1/2024 13:00:05', admin: 'Mamdouh', operation: 'Created User' },
+        { date: '10/1/2024 15:15:25', admin: 'Ahmed', operation: 'Deleted User' },
+        { date: '7/1/2024 12:45:50', admin: 'loay', operation: 'Logged out' },
+        { date: '10/1/2024 11:20:40', admin: 'omar', operation: 'Logged in' },
+        { date: '9/1/2024 13:00:05', admin: 'Mamdouh', operation: 'Created User' },
+        { date: '10/1/2024 15:15:25', admin: 'Ahmed', operation: 'Deleted User' }
+      ];
+      return logs
+    }
+
+    function updateLogTable() {
+      const logTableBody = document.getElementById('logTableBody');
+      const logs = getLogs();
+
+      logs.forEach(log => {
+        const row = `
+          <tr>
+            <td>${log.date}</td>
+            <td>${log.admin}</td>
+            <td>${log.operation}</td>
+          </tr>
+        `;
+        logTableBody.innerHTML += row;
+      });
+    }
+
+    function clearLogTable() {
+      const logTableBody = document.getElementById('logTableBody');
+      logTableBody.innerHTML = '';
+    }
+
+    window.onload = () => {
+      updateLogTable();
+      document.getElementById('clearButton').addEventListener('click', clearLogTable);
+    };
+  </script>
+</body>
+</html>

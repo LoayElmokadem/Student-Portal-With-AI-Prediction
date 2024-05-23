@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ML</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body{
+        background-color: rgb(216, 225, 225);
+
+    }
+  </style>
+  <script>
+    function predict(button, subject) {
+        console.log(subject);
+        let value = '';
+        if (subject === "Machine Learning") {
+            value = "A+";
+        } else if (subject === "Data Science") {
+            value = "A-";
+        } else {
+            value = "A";
+        }
+        button.parentElement.textContent = value;
+    }
+    function get_subjects(){
+        const subjects = {
+        'Web': { '7th': 28, '12th': 18, 'CourseWork': 9 },
+        'OS': { '7th': 25, '12th': 17, 'CourseWork': 10 },
+        'Network': { '7th': 27, '12th': 16, 'CourseWork': 8 },
+        'Data Science': { '7th': 23, '12th': 15, 'CourseWork': 9 },
+        'Embedded system': { '7th': 29, '12th': 19, 'CourseWork': 10 },
+        'Machine Learning': { '7th': 30, '12th': 20, 'CourseWork': 10 }
+    };
+        return subjects
+    }
+    const subjects = get_subjects()
+
+    function add_dropdown() {
+        const dropdown = document.getElementById('subjectDropdown');
+        dropdown.innerHTML = '';  
+
+        for (let subject in subjects) {
+            let a = document.createElement('a');
+            a.className = 'dropdown-item';
+            a.href = '#';
+            a.textContent = subject;
+            a.onclick = function() { updateTable(subject); };
+            dropdown.appendChild(a);
+        }
+    }
+
+    function updateTable(subject) {
+        const tableBody = document.getElementById('bodytable');
+        tableBody.innerHTML = ''; 
+
+        let row = document.createElement('tr');
+
+        let cell1 = document.createElement('td');
+        cell1.textContent = subject;
+        row.appendChild(cell1);
+
+        let cell2 = document.createElement('td');
+        cell2.textContent = subjects[subject]['7th'];
+        row.appendChild(cell2);
+
+        let cell3 = document.createElement('td');
+        cell3.textContent = subjects[subject]['12th'];
+        row.appendChild(cell3);
+
+        let cell4 = document.createElement('td');
+        cell4.textContent = subjects[subject]['CourseWork'];
+        row.appendChild(cell4);
+
+        let cell5 = document.createElement('td');
+        let predictButton = document.createElement('button');
+        predictButton.className = 'btn btn-danger';
+        predictButton.textContent = 'Predict';
+        predictButton.onclick = function() { predict(this, subject); };  // Add onclick event to call predict function with subject name
+        cell5.appendChild(predictButton);
+        row.appendChild(cell5);
+
+        tableBody.appendChild(row);
+    }
+    window.onload = add_dropdown;
+  </script>
+</head>
+<body>
+<div class="container" style="text-align: center; margin-top:15%;background-color:whitesmoke;">
+  <div class="dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="margin-top: 10px;">
+      Select Subject
+    </button>
+    <div class="dropdown-menu" id="subjectDropdown">
+        <!-- here are choice of the subject (dynamically)  -->
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Subject Name</th>
+            <th>7th Week (30%)</th>
+            <th>12th Week (20%)</th>
+            <th>Semeter Work (10%)</th>
+            <th>Final Grade</th>
+          </tr>
+        </thead>
+        <tbody id="bodytable">
+            <!-- Subjects are displayed here (dynamically) upon user choice  -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
