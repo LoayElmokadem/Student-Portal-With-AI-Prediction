@@ -13,7 +13,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Ae13200456*',
+  password: '',
   database: 'student_portal'
 });
 
@@ -39,8 +39,8 @@ app.get('/log', (req, res) => {
 
 
 app.get('/students', (req, res) => {
-  const coursesQuery = 'SELECT course, exam_7th, exam_12th, classwork, final_exam, grade FROM student_course WHERE user_id = 10';
-  const gpaQuery = 'SELECT GPA, C_GPA FROM gpa WHERE st_id = 10';
+  const coursesQuery = 'SELECT course, exam_7th, exam_12th, classwork, final_exam, grade FROM student_course WHERE user_id = 8';
+  const gpaQuery = 'SELECT GPA, C_GPA FROM gpa WHERE st_id = 8';
 
   db.query(coursesQuery, (err, courses) => {
     if (err) {
